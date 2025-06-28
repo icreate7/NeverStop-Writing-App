@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NeverStop - Start Writing</title>
+    {{ bootstrap.load_css() }}
+
+    <!-- Load your custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container mt-5 mb-5">
+        <div class="col-md-10 mx-auto alert alert-warning text-center">
+            <strong>Warning:</strong> If you stop typing for 10 seconds, the page will reload!
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <textarea id="typed_content" placeholder="Start typing... (10 second timeout)"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const textarea = document.getElementById('typed_content');
+        let timeout;
+        let warningTimeout;
+        const TOTAL_TIME = 10000; // 10 seconds
+        const WARNING_TIME = 5000; // Show warning at 5 seconds remaining
+
+        // Focus the textarea immediately
+        textarea.focus();
+
+        function resetTimer() {
+            clearTimeout(timeout);
+            clearTimeout(warningTimeout);
+            textarea.classList.remove('warning-border');
+
+            // Set warning to appear when 2 seconds remain
+            warningTimeout = setTimeout(() => {
+                textarea.classList.add('warning-border');
+            }, TOTAL_TIME - WARNING_TIME);
+
+            // Reload when time runs out
+            timeout = setTimeout(() => {
+                window.location.reload();
+            }, TOTAL_TIME);
+        }
+
+        // Track all interaction types
+        ['input', 'keydown', 'click', 'touchstart'].forEach(event => {
+            textarea.addEventListener(event, resetTimer);
+        });
+
+        resetTimer(); // Initialize first timer
+    </script>
+    {{ bootstrap.load_js() }}
+</body>
+</html>

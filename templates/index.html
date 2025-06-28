@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A writing app where your text disappears if you stop typing">
+    <meta name="author" content="Your Name">
+    <title>NeverStop - The No-Pause Writing App</title>
+    <link rel="canonical" href="https://yourwebsite.com">
+
+    {% block styles %}
+    {{ bootstrap.load_css() }}
+    {% endblock %}
+
+    <meta name="theme-color" content="#712cf9">
+</head>
+
+<body class="d-flex flex-column min-vh-100 text-center text-bg-dark">
+    {% include "header.html" %}
+    <div class="flex-grow-1 d-flex flex-column justify-content-center">
+        <main class="px-3">
+            <p class="display-1">✍🏽</p>
+            <h1 class="display-4">Welcome to NeverStop!</h1>
+            <h2 class="lead">"No pause. Just flow."</h2>
+            <div class="mt-5">
+                <a class="btn btn-warning btn-lg px-4" href="{{ url_for('write_text') }}" role="button">Start Writing</a>
+            </div>
+        </main>
+    </div>
+    {% include "footer.html" %}
+</body>
+</html>
